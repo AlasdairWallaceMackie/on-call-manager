@@ -6,12 +6,12 @@
 	import ArrowRightIcon from '../icons/ArrowRightIcon.svelte'
 
   let employeeNames = [
-  "Tuomas Holopainen",
-  "Emppu Vuorinen",
-  "Troy Donockley",
-  "Floor Jansen",
-  "Kai Hahto",
-  "Jukka Koskinen",
+    "Tuomas Holopainen",
+    "Emppu Vuorinen",
+    "Troy Donockley",
+    "Floor Jansen",
+    "Kai Hahto",
+    "Jukka Koskinen",
   ]
 
 </script>
