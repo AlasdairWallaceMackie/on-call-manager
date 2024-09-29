@@ -1,17 +1,25 @@
 <script>
   import { fly } from 'svelte/transition'
+  import { flip } from 'svelte/animate';
 
   import Screen from '../components/Screen.svelte';
 	import ArrowRightIcon from '../icons/ArrowRightIcon.svelte'
+	import { dndzone } from 'svelte-dnd-action';
 
-  let employeeNames = [
-    "Tuomas Holopainen",
-    "Emppu Vuorinen",
-    "Troy Donockley",
-    "Floor Jansen",
-    "Kai Hahto",
-    "Jukka Koskinen",
+  let items = [
+    { id: 1, name: "Tuomas Holopainen" },
+    { id: 2, name: "Emppu Vuorinen" },
+    { id: 3, name: "Troy Donockley" },
+    { id: 4, name: "Floor Jansen" },
+    { id: 5, name: "Kai Hahto" },
+    { id: 6, name: "Jukka Koskinen" },
   ]
+
+  let flipDurationMs = 100
+
+  function setItems(e) {
+    items = e.detail.items
+  }
 
 </script>
 
@@ -25,10 +33,15 @@
     </a>
 
     <div class="row">
-      <div class="col col-12-md">
-        {#each employeeNames as name}
-          <div class="draggable-row">
-            {name}
+      <div
+        class="col col-12-md"
+        use:dndzone="{{items, flipDurationMs}}"
+        on:consider="{setItems}"
+        on:finalize="{setItems}"
+      >
+        {#each items as item(item.id)}
+          <div class="draggable-row" animate:flip={{duration:flipDurationMs}}>
+            {item.name}
           </div>
         {/each}
         
