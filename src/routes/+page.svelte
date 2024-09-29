@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { fly } from 'svelte/transition'
   import { flip } from 'svelte/animate';
 
@@ -6,7 +6,7 @@
 	import ArrowRightIcon from '../icons/ArrowRightIcon.svelte'
 	import { dndzone } from 'svelte-dnd-action';
 
-  let items = [
+  let dragAndDropNames = [
     { id: 1, name: "Tuomas Holopainen" },
     { id: 2, name: "Emppu Vuorinen" },
     { id: 3, name: "Troy Donockley" },
@@ -14,13 +14,11 @@
     { id: 5, name: "Kai Hahto" },
     { id: 6, name: "Jukka Koskinen" },
   ]
+  let flipDurationMs = 100 // Drag and Drop animation speed
 
-  let flipDurationMs = 100
-
-  function setItems(e) {
-    items = e.detail.items
+  function setDragAndDropNames(e: CustomEvent) {
+    dragAndDropNames = e.detail.items
   }
-
 </script>
 
 <div
@@ -35,13 +33,13 @@
     <div class="row">
       <div
         class="col col-12-md"
-        use:dndzone="{{items, flipDurationMs}}"
-        on:consider="{setItems}"
-        on:finalize="{setItems}"
+        use:dndzone="{{items: dragAndDropNames, flipDurationMs}}"
+        on:consider="{setDragAndDropNames}"
+        on:finalize="{setDragAndDropNames}"
       >
-        {#each items as item(item.id)}
+        {#each dragAndDropNames as employee(employee.id)}
           <div class="draggable-row" animate:flip={{duration:flipDurationMs}}>
-            {item.name}
+            {employee.name}
           </div>
         {/each}
         
